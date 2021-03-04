@@ -1,24 +1,39 @@
+const { json } = require('body-parser');
+const e = require('express');
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
+const DataBase = require("../../class/classes");
+const dataBase = new DataBase();
+let urls ;
 
-let listOfUrl = [];
-
+router.use((req, res, next) => {
+   fs.readFile(process.cwd() + '\\data.json', (error, content) => {
+       if(error) {
+        throw error
+       } 
+    urls = JSON.parse(content)
+    next();
+    });
+});
+console.log(urls);
 router.post('/', (req,res) => {
-    const url = {
-        originalUrl : req.body.url,
-        id : (1 + listOfUrl.length)
+    let obj = {
+        originalUrl: req.body.id,
+        shorturl : 1
     }
-    let checkUrl = listOfUrl.filter(url => url.originalUrl === req.body.url);
-    if(checkUrl.length === 0) {
-        listOfUrl.push(url);
-        res.send(url)
-    } else {
-        res.send(...checkUrl)
-    }
+    dataBase.addUrl(obj, obj.originalUrl)
+    res.send(obj)
 })
 
-router.get("/id", (req,res) => {
-    res.redirect("https://github.com/")
-  })
-
-module.exports = router;
+router.get("/:id", (req,res) => {
+    const id = parseInt(req.params.id)
+    let checkid = listOfUrl.filter(url => url.shorturl === id)
+    // console.log(checkid);
+    if(checkid.length === 0 ) {
+        res.send("this url arent stored in our service")
+    } else {
+        res.redirect(checkid[0].originalUrl)
+    }
+})
+module.exports = router
