@@ -5,26 +5,28 @@ const router = express.Router();
 const fs = require('fs');
 const DataBase = require("../../class/classes");
 const dataBase = new DataBase();
-let urls ;
+const {getData} = require('../../urls.js');
 
-router.use((req, res, next) => {
-   fs.readFile(process.cwd() + '\\data.json', (error, content) => {
-       if(error) {
-        throw error
-       } 
-    urls = JSON.parse(content)
-    next();
-    });
-});
-console.log(urls);
+// router.use((req, res, next) => {
+//    fs.readFile(process.cwd() + '\\data.json', (error, content) => {
+//     if(error) {
+//      throw error
+//     } 
+//     data = JSON.parse(content)
+//     next();
+//     });
+// });
+
 router.post('/', (req,res) => {
-    let obj = {
-        originalUrl: req.body.id,
-        shorturl : 1
-    }
-    dataBase.addUrl(obj, obj.originalUrl)
-    res.send(obj)
-})
+
+        let obj = {
+            originalUrl: req.body.url
+        }
+        dataBase.addUrl(obj, obj.originalUrl);
+        console.log(obj);
+        res.send(obj)
+    })
+
 
 router.get("/:id", (req,res) => {
     const id = parseInt(req.params.id)

@@ -1,3 +1,44 @@
+const fs = require('fs');
+
+class DataBase {
+    constructor(){}
+    
+getDate() {
+        
+}
+    
+setDate() {
+        
+}
+    
+findUrl(){
+        
+}
+    
+addUrl(obj, url) {
+  fs.readFile('./data.json',(error, content) => {
+    if(error) {
+     throw error;
+    }
+  let data = JSON.parse(content);
+  let checkUrl = data.filter(obj => obj.originalUrl === url)
+    if(checkUrl.length === 0){
+     obj.shorturl = data.length
+     data.push(obj);
+     fs.writeFile('./data.json',JSON.stringify(data,null, 4),(err) => { 
+     if(err) {
+     throw err
+     }    
+    })
+    obj.shorturl = data.length
+    return obj
+                } else {
+                return obj
+                }
+            });
+    }
+}
+
 // class Url {
 //     constructor(creationDate,originalUrl,shorturl,redirectCount)
     
@@ -6,50 +47,7 @@
 //     shorturl = this.shorturl;
 //     redirectCount = 0
 // }
-let listOfUrl = [ {
-    originalUrl : "test1",
-    shorturl : 1
-},
-{
-    originalUrl : "test2",
-    shorturl : 2
-},
-{
-    originalUrl : "test3",
-    shorturl : 3
-},
-];
-
-class DataBase {
-    constructor(){}
-
-    getDate() {
-
-    }
-
-    setDate() {
-
-    }
-
-    findUrl(){
-
-    }
-
-    addUrl(obj, url) {
-        let checkUrl = listOfUrl.filter(obj => obj.originalUrl === url)
-        if(checkUrl.length === 0){
-            listOfUrl.push(obj)
-            // console.log("not found")
-            return obj
-        } else {
-            // console.log("found")
-            return obj
-        }
-    }
-}
-
 const dataBase = new DataBase;
-
 
 let test = {
     originalUrl : "test8",
