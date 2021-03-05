@@ -1,24 +1,14 @@
 [
     {
-        "originalUrl": "test"
+        "creationDate": "2021-03-05T12:51:55.009Z",
+        "originalUrl": "https://github.com/axios/axios#browser-support",
+        "shorturl": 1,
+        "redirectCount": 0
     },
     {
-        "originalUrl": "https://github.com/axios/axios#browser-support"
-    },
-    {
-        "originalUrl": "https://www.w3schools.com/nodejs/nodejs_filesystem.asp",
-        "shorturl": 2
-    },
-    {
-        "originalUrl": "https://www.youtube.com/watch?v=qM4G1Ai2ZpE",
-        "shorturl": 3
-    },
-    {
-        "originalUrl": "https://url-shortener-microservice.freecodecamp.rocks/",
-        "shorturl": 4
-    },
-    {
-        "originalUrl": "https://github.com/suvelocity/cyber4s-final1-boilerplate-url-shortener",
-        "shorturl": 5
+        "creationDate": "2021-03-05T12:52:07.179Z",
+        "originalUrl": "https://edu-il.zoom.us/j/3418778871#success",
+        "shorturl": 2,
+        "redirectCount": 0
     }
 ]

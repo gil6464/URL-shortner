@@ -1,57 +1,53 @@
+const { json } = require('body-parser');
 const fs = require('fs');
+const { get } = require('../api/shorturl/api');
+
 
 class DataBase {
-    constructor(){}
-    
-getDate() {
-        
-}
-    
-setDate() {
-        
-}
-    
-findUrl(){
-        
-}
-    
-addUrl(obj, url) {
-  fs.readFile('./data.json',(error, content) => {
-    if(error) {
-     throw error;
+    constructor(){
+        this.data = []
     }
-  let data = JSON.parse(content);
-  let checkUrl = data.filter(obj => obj.originalUrl === url)
-    if(checkUrl.length === 0){
-     obj.shorturl = data.length
-     data.push(obj);
-     fs.writeFile('./data.json',JSON.stringify(data,null, 4),(err) => { 
-     if(err) {
-     throw err
-     }    
+    
+getData() {
+    return new Promise((res) => {
+        fs.readFile('./data.json',(error, content) => {
+            if(error) {
+                throw error;
+            }
+            this.data = JSON.parse(content);
+            res(this.data)
+        })   
     })
-    obj.shorturl = data.length
-    return obj
-                } else {
-                return obj
-                }
-            });
+}
+
+    
+setData(url) {
+    this.getData().then((res) => { 
+        let list = (res.length + 1)
+        this.url = new Url(url,list);
+        this.data.push(this.url)
+        fs.writeFile('./data.json',JSON.stringify(this.data,null, 4),(err) => { 
+            if(err) {
+                throw err
+            } 
+        })
+    })
+}
+    
+checkUrl(url) {
+ let checkList = this.data.filter(obj => obj.originalUrl === url);
+
+}
+}
+
+class Url {
+    constructor(originalUrl,shorturl){
+
+        this.creationDate = new Date();
+        this.originalUrl = originalUrl;
+        this.shorturl = shorturl;
+        this.redirectCount = 0
     }
 }
 
-// class Url {
-//     constructor(creationDate,originalUrl,shorturl,redirectCount)
-    
-//     creationDate = this.creationDate;
-//     originalUrl = this.originalUrl;
-//     shorturl = this.shorturl;
-//     redirectCount = 0
-// }
-const dataBase = new DataBase;
-
-let test = {
-    originalUrl : "test8",
-    shorturl : 3
-}
-// console.log(dataBase.addUrl(test ,test.originalUrl))
 module.exports = DataBase
