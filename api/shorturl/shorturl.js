@@ -1,10 +1,10 @@
 const express = require('express');
 const DataBase = require('../../database/database');
 const redirectRouter = express.Router();
-const databse = new DataBase
+const databse = new DataBase()
 
 redirectRouter.get("/:id", async (req,res) => {
-  const id = parseInt(req.params.id)
+  const id = parseInt(req.params.id);
   const listOfUrl = await databse.getData()
   const checkId = listOfUrl.filter(obj => obj.shortUrl === id);
   if(checkId.length === 0) {

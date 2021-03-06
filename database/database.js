@@ -2,19 +2,16 @@ const { json } = require('body-parser');
 const fs = require('fs');
 const { get } = require('../api/shorturl/api');
 const DB_NAME = "my-url";
-const url =  "https://api.jsonbin.io/v3/b/6016ba3213b20d48e8bf90bf"
-const fetch = require('node-fetch')
+const url =  "https://api.jsonbin.io/v3/b/6016ba3213b20d48e8bf90bf";
+const fetch = require('node-fetch');
 
 async function getPersistent() {
-
   const init = {
     method :"GET"
   };
-  
   const response = await fetch(url + "/latest", init);
   const body = await response.json();
   return body.record ["my-url"];
-
 }
 
 async function setPersistent(data) {
@@ -53,26 +50,23 @@ async checkUrl(url) {
   
   if(checkData.length === 0) {
     const response = new ResponseUrl(url,listOfUrl.length + 1)
-    await this.setData(url); 
+    this.setData(url); 
     return response;
   } else {
     const existUrl = new ResponseUrl(checkData[0].originalUrl, checkData[0].shortUrl)
     return existUrl
   }
-  
 }
 async updateCount(url) {
   const listOfUrl = await this.getData();
   const indexOfUrl = listOfUrl.findIndex(obj => obj.originalUrl === url);
   listOfUrl[indexOfUrl].redirectCount++
   setPersistent(listOfUrl);
-  console.log(listOfUrl);
 }
 }
 
 class Url {
   constructor(originalUrl,shortUrl){
-
     this.creationDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
     this.originalUrl = originalUrl;
     this.shortUrl = shortUrl;
