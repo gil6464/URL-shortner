@@ -1,15 +1,15 @@
-// const express = require('express');
-// const routerGet = express.Router();
+const express = require('express');
+const DataBase = require('../../databse/database');
+const redirectRouter = express.Router();
+const databse = new DataBase
 
-// routerGet.get("/:id", (req,res) => {
-//     const id = parseInt(req.params.id)
-//     let checkid = listOfUrl.find(url => url.shorturl === id)
-//     console.log(checkid);
-//     if(checkid.length === 0 ) {
-//         res.send("this url arent stored in our service")
-//     } else {
-//         res.redirect(checkid[0].originalUrl)
-//     }
-// })
+redirectRouter.get("/:id", async (req,res) => {
+  const id = parseInt(req.params.id)
+  const listOfUrl = await databse.getData()
+  console.log(listOfUrl)
+  const checkId = listOfUrl.filter(obj => obj.shortUrl === id);
+    
+  res.send(checkId)
+})
 
-// module.exports = routerGet
+module.exports = redirectRouter

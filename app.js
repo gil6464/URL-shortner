@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser  = require("body-parser");
-const api = require('./api/shorturl/api')
+const api = require('./api/shorturl/api');
+const redirect = require('./api/shorturl/shorturl')
 const app = express();
 
 app.use(cors());
@@ -16,6 +17,6 @@ app.get("/", (req, res) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/shorturl/new', api)
-// app.use('/api/shorturl', require('./api/shorturl/shorturl'))
+app.use('/api/shorturl', redirect)
 
 module.exports = app;

@@ -32,9 +32,6 @@ async function setPersistent(data) {
   return response.ok;
 }
 
-
-
-
 class DataBase {
     constructor(){
         this.data = []
@@ -44,11 +41,9 @@ async getData() {
        return this.data
    }
 setData(info) {
-    const url = new Url (info,this.data.length)
-    const response = new ResponseUrl(info, this.data.length)
+    const url = new Url (info,(this.data.length + 1)) // write +1 because i didnt want to short url start with 0.
     this.data.push(url)
     setPersistent(this.data)
-    return response
 }
     
 async checkUrl(url) {
@@ -56,8 +51,9 @@ async checkUrl(url) {
   let checkData = data.filter(obj => obj.originalUrl === url);
 
   if(checkData.length === 0){
-     const response = this.setData(url);
-     return response
+     this.setData(url); 
+     const response = new ResponseUrl(url,this.data.length)
+     return response;
   } else {
     const existUrl = new ResponseUrl(checkData[0].originalUrl, checkData[0].shorturl)
     return existUrl
@@ -67,19 +63,19 @@ async checkUrl(url) {
 }
 
 class Url {
-    constructor(originalUrl,shorturl){
+    constructor(originalUrl,shortUrl){
 
         this.creationDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
         this.originalUrl = originalUrl;
-        this.shorturl = shorturl;
+        this.shortUrl = shortUrl;
         this.redirectCount = 0
     }
 }
 
 class ResponseUrl {
-    constructor(originalUrl,shorturl) {
+    constructor(originalUrl,shortUrl) {
         this.originalUrl = originalUrl;
-        this.shorturl = shorturl;
+        this.shortUrl = shortUrl;
     }
 }
 
