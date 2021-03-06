@@ -31,52 +31,60 @@ async function setPersistent(data) {
   const response = await fetch(url, init);
   return response.ok;
 }
-
+  
 class DataBase {
-    constructor(){
-        this.data = []
+    constructor() {
+    this.data = []
     }
 async getData() {
-       this.data = await getPersistent()
-       return this.data
+    this.data = await getPersistent()
+    return this.data
    }
-setData(info) {
+async setData(info) {
+    this.data = await this.getData()
     const url = new Url (info,(this.data.length + 1)) // write +1 because i didnt want to short url start with 0.
     this.data.push(url)
     setPersistent(this.data)
 }
-    
+      
 async checkUrl(url) {
-  const data = await getPersistent();
-  let checkData = data.filter(obj => obj.originalUrl === url);
-
-  if(checkData.length === 0){
-     this.setData(url); 
-     const response = new ResponseUrl(url,this.data.length)
-     return response;
+  const listOfUrl = await getPersistent();
+  let checkData = listOfUrl.filter(obj => obj.originalUrl === url);
+  
+  if(checkData.length === 0) {
+    const response = new ResponseUrl(url,listOfUrl.length + 1)
+    await this.setData(url); 
+    return response;
   } else {
-    const existUrl = new ResponseUrl(checkData[0].originalUrl, checkData[0].shorturl)
+    const existUrl = new ResponseUrl(checkData[0].originalUrl, checkData[0].shortUrl)
     return existUrl
   }
-
+  
+}
+async updateCount(url) {
+  const listOfUrl = await this.getData();
+  const indexOfUrl = listOfUrl.findIndex(obj => obj.originalUrl === url);
+  listOfUrl[indexOfUrl].redirectCount++
+  setPersistent(listOfUrl);
+  console.log(listOfUrl);
 }
 }
 
 class Url {
-    constructor(originalUrl,shortUrl){
+  constructor(originalUrl,shortUrl){
 
-        this.creationDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        this.originalUrl = originalUrl;
-        this.shortUrl = shortUrl;
-        this.redirectCount = 0
-    }
+    this.creationDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    this.originalUrl = originalUrl;
+    this.shortUrl = shortUrl;
+    this.redirectCount = 0
+  }
 }
 
 class ResponseUrl {
-    constructor(originalUrl,shortUrl) {
-        this.originalUrl = originalUrl;
-        this.shortUrl = shortUrl;
-    }
+  constructor(originalUrl,shortUrl) {
+    this.originalUrl = originalUrl;
+    this.shortUrl = shortUrl;
+  }
 }
 
 module.exports = DataBase

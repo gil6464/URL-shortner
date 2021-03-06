@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/api/shorturl/new', api)
-app.use('/api/shorturl', redirect)
+app.use('/api/shorturl/new', api);
+app.use('/api/shorturl', redirect);
 
 module.exports = app;
