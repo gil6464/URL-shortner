@@ -48,19 +48,19 @@ async checkUrl(url) {
   const listOfUrl = await getPersistent();
   let checkData = listOfUrl.filter(obj => obj.originalUrl === url);
   
-  if(checkData.length === 0) {
-    const response = new ResponseUrl(url,listOfUrl.length + 1)
+  if(!checkData.length) {
+    const response = new ResponseUrl(url,listOfUrl.length + 1);
     this.setData(url); 
     return response;
   } else {
-    const existUrl = new ResponseUrl(checkData[0].originalUrl, checkData[0].shortUrl)
-    return existUrl
+    const existUrl = new ResponseUrl(checkData[0].originalUrl, checkData[0].shortUrl);
+    return existUrl;
   }
 }
 async updateCount(url) {
   const listOfUrl = await this.getData();
   const indexOfUrl = listOfUrl.findIndex(obj => obj.originalUrl === url);
-  listOfUrl[indexOfUrl].redirectCount++
+  listOfUrl[indexOfUrl].redirectCount++;
   setPersistent(listOfUrl);
 }
 }
@@ -70,7 +70,7 @@ class Url {
     this.creationDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
     this.originalUrl = originalUrl;
     this.shortUrl = shortUrl;
-    this.redirectCount = 0
+    this.redirectCount = 0;
   }
 }
 
@@ -81,4 +81,4 @@ class ResponseUrl {
   }
 }
 
-module.exports = DataBase
+module.exports = DataBase;

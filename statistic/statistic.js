@@ -8,7 +8,7 @@ statisticRouter.get('/:id', async (req,res)=> {
     const listOfUrl = await database.getData();
     const indexOfUrl = listOfUrl.findIndex(obj => obj.shortUrl === id);
     if(indexOfUrl === -1) {
-        res.send("this id is aint exist in our service")
+        res.status(404).send("Unexist statistic of this short url id in our Data base please make sure add your link to our service")
     }else {
         res.send(listOfUrl[indexOfUrl])
     }
