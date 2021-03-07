@@ -48,7 +48,7 @@ async checkUrl(url) {
   const listOfUrl = await getPersistent();
   let checkData = listOfUrl.filter(obj => obj.originalUrl === url);
   
-  if(!checkData.length) {
+  if(checkData.length === 0) {
     const response = new ResponseUrl(url,listOfUrl.length + 1);
     this.setData(url); 
     return response;

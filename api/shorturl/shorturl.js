@@ -2,6 +2,7 @@ const express = require('express');
 const DataBase = require('../../database/database');
 const redirectRouter = express.Router();
 const databse = new DataBase();
+redirectRouter.use(express.json());
 
 redirectRouter.get("/:id", async (req,res) => {
   const id = parseInt(req.params.id);
