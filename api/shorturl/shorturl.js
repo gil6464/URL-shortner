@@ -15,5 +15,4 @@ redirectRouter.get("/:id", async (req,res) => {
     res.redirect(checkId[0].originalUrl);
   }
 })
-
 module.exports = redirectRouter;

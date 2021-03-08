@@ -2,14 +2,14 @@ const { json } = require('body-parser');
 const fs = require('fs');
 const { get } = require('../api/shorturl/api');
 const DB_NAME = "my-url";
-const url =  "https://api.jsonbin.io/v3/b/6016ba3213b20d48e8bf90bf";
+const urlDB =  "https://api.jsonbin.io/v3/b/6016ba3213b20d48e8bf90bf";
 const fetch = require('node-fetch');
 
 async function getPersistent() {
   const init = {
     method :"GET"
   };
-  const response = await fetch(url + "/latest", init);
+  const response = await fetch(urlDB + "/latest", init);
   const body = await response.json();
   return body.record ["my-url"];
 }
@@ -25,7 +25,7 @@ async function setPersistent(data) {
     },
     body : JSON.stringify(dataObject)
   };
-  const response = await fetch(url, init);
+  const response = await fetch(urlDB, init);
   return response.ok;
 }
   
@@ -73,7 +73,6 @@ class Url {
     this.redirectCount = 0;
   }
 }
-
 class ResponseUrl {
   constructor(originalUrl,shortUrl) {
     this.originalUrl = originalUrl;
