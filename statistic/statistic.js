@@ -10,9 +10,7 @@ statisticRouter.get('/:id', async (req,res)=> {
     if(indexOfUrl === -1) {
         res.status(404).send("Unexist statistic of this short url id in our Data base please make sure add your link to our service")
     }else {
-        res.send(listOfUrl[indexOfUrl])
+        res.send(listOfUrl[indexOfUrl]);
     }
 })
-
-
-module.exports = statisticRouter
+module.exports = statisticRouter;
