@@ -40,9 +40,11 @@ describe('Check if app increase count after redirect', () => {
     it('should add one to count', async () => {
         const getFirstStatistic = await request(app).get('/api/statistic/1');
         const sendRequest = await request(app).get('/api/shorturl/1');
-        setTimeout(async () => {
+        // setTimeout(async () => {
         const getSecondStatistic = await request(app).get('/api/statistic/1');
-        expect(getFirstStatistic.body.redirectCount + 1).toEqual(getSecondStatistic.body.redirectCount)
-       },2000);
+        getFirstStatistic.body.redirectCount += 1;
+        expect(getFirstStatistic.body.redirectCount).toEqual(getSecondStatistic.body.redirectCount)
+        // expect(getFirstStatistic.body.redirectCount).toEqual(getSecondStatistic.body.redirectCount)
+    //    },2000);
     })
 })
