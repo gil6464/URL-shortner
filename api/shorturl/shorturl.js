@@ -7,7 +7,7 @@ redirectRouter.use(express.json());
 redirectRouter.get("/:id", async (req,res) => {
   const id = parseInt(req.params.id);
   const listOfUrl = await databse.getData();
-  const checkId = listOfUrl.filter(obj => obj.shortUrl === id);
+  const checkId = listOfUrl.filter(URL => URL.shortUrl === id);
   if(checkId.length === 0) {
     res.status(404).send("This id dont exist in our data base");
   } else {
