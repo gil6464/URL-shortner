@@ -1,4 +1,10 @@
-My shortner url project! 📜🥳.
+# My shortner url project! 📜🥳.
+
+## How it is works?
+Submit url in the input that in home page, and you will get speacial id number as "shortUrl" value, take this number and write it insted of the "new" word at the url add, and you will redirect to your original url.
+
+### Statistic
+If you got to ...api/statistic:yourIdNumber you will see the number of times that you redirected to this address, the creation date, and the original URL.
 
 While i writing the my code, i used in google, youtube and github.
 
