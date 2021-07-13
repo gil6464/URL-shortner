@@ -8,6 +8,8 @@ If you got to ...api/statistic:yourIdNumber you will see the number of times tha
 
 ### About the project 
 
+This is my first project with Node.js
+
 While i writing the my code, i used in google, youtube and github.
 
 In this app you can enter your link into web site, and get a short id which you can always use to
